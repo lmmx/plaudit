@@ -13,6 +13,12 @@ pub struct TokenStore {
     path: PathBuf,
 }
 
+impl Default for TokenStore {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TokenStore {
     pub fn new() -> Self {
         let home = std::env::var("HOME").unwrap_or_else(|_| ".".into());
@@ -52,6 +58,12 @@ impl TokenStore {
 
 pub struct OAuth {
     store: TokenStore,
+}
+
+impl Default for OAuth {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl OAuth {

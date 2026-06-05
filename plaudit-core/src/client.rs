@@ -8,6 +8,12 @@ pub struct Client {
     oauth: OAuth,
 }
 
+impl Default for Client {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Client {
     pub fn new() -> Self {
         Client {
