@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4](https://github.com/lmmx/plaudit/compare/plaudit-cli-v0.1.3...plaudit-cli-v0.1.4) - 2026-06-05
+
+### Fixed
+
+- binstall target correct
+
 ## [0.1.3](https://github.com/lmmx/plaudit/releases/tag/plaudit-cli-v0.1.3) - 2026-06-05
 
 ### <!-- 9 -->Other
