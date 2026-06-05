@@ -1,5 +1,3 @@
-bin := "plaudit-cli"
-
 login:
     cargo run -p {{bin}} -- login
 

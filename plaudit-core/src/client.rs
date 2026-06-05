@@ -10,7 +10,9 @@ pub struct Client {
 
 impl Client {
     pub fn new() -> Self {
-        Client { oauth: OAuth::new() }
+        Client {
+            oauth: OAuth::new(),
+        }
     }
 
     pub fn oauth(&self) -> &OAuth {
@@ -72,7 +74,10 @@ impl Client {
     }
 
     pub fn list_files(&self, page: u32, page_size: u32) -> Result<FilesPage> {
-        self.request("GET", &format!("/open/third-party/files/?page={page}&page_size={page_size}"))
+        self.request(
+            "GET",
+            &format!("/open/third-party/files/?page={page}&page_size={page_size}"),
+        )
     }
 
     pub fn get_file(&self, id: &str) -> Result<FileDetail> {

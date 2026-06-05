@@ -1,5 +1,3 @@
-bin := "plaudit-cli"
-
 build:
     cargo build --workspace --locked
 
@@ -11,15 +9,6 @@ check:
 
 clippy:
     cargo clippy --workspace --all-targets --all-features --target-dir target/clippy-all-features -- -D warnings
-
-fmt:
-    cargo fmt --all
-
-fmt-check:
-    cargo fmt --all --check
-
-# Format, lint, test — run before committing
-ci: fmt-check clippy test
 
 [working-directory: 'crates/']
 test *args:

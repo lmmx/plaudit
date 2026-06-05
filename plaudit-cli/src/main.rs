@@ -9,7 +9,10 @@ use std::path::Path;
 type R = plaudit_core::Result<()>;
 
 #[derive(Parser)]
-#[command(name = "plaudit", about = "Export your Plaud recordings and transcripts")]
+#[command(
+    name = "plaudit",
+    about = "Export your Plaud recordings and transcripts"
+)]
 struct Cli {
     #[command(subcommand)]
     cmd: Cmd,
@@ -101,14 +104,40 @@ fn run() -> R {
             println!("name:       {}", f.name.as_deref().unwrap_or("-"));
             println!("created_at: {}", f.created_at.as_deref().unwrap_or("-"));
             println!("duration:   {}", format_duration(f.duration.unwrap_or(0)));
-            println!("audio:      {}", if f.presigned_url.is_some() { "available" } else { "-" });
-            println!("transcript: {}", if transcript_segments(&f).is_some() { "available" } else { "-" });
-            println!("summary:    {}", if summary_markdown(&f).is_some() { "available" } else { "-" });
+            println!(
+                "audio:      {}",
+                if f.presigned_url.is_some() {
+                    "available"
+                } else {
+                    "-"
+                }
+            );
+            println!(
+                "transcript: {}",
+                if transcript_segments(&f).is_some() {
+                    "available"
+                } else {
+                    "-"
+                }
+            );
+            println!(
+                "summary:    {}",
+                if summary_markdown(&f).is_some() {
+                    "available"
+                } else {
+                    "-"
+                }
+            );
         }
         Cmd::Transcript { id, srt, output } => {
             let f = c.get_file(&id)?;
-            let segs = transcript_segments(&f).ok_or("Transcript not available for this recording.")?;
-            let out = if srt { segments_to_srt(&segs) } else { segments_to_text(&segs) };
+            let segs =
+                transcript_segments(&f).ok_or("Transcript not available for this recording.")?;
+            let out = if srt {
+                segments_to_srt(&segs)
+            } else {
+                segments_to_text(&segs)
+            };
             emit(output, &out)?;
         }
         Cmd::Summary { id, output } => {

@@ -56,11 +56,15 @@ pub struct OAuth {
 
 impl OAuth {
     pub fn new() -> Self {
-        OAuth { store: TokenStore::new() }
+        OAuth {
+            store: TokenStore::new(),
+        }
     }
 
     pub fn get_access_token(&self) -> Result<Option<String>> {
-        let Some(t) = self.store.load() else { return Ok(None) };
+        let Some(t) = self.store.load() else {
+            return Ok(None);
+        };
         if let Some(exp) = t.expires_at {
             if now_ms() > exp - 60_000 {
                 return match &t.refresh_token {
@@ -186,7 +190,10 @@ fn wait_for_code(listener: TcpListener, expected_state: &str) -> Result<String> 
         }
         match code {
             Some(c) => {
-                respond(&mut stream, "Authorization successful — you can close this tab.");
+                respond(
+                    &mut stream,
+                    "Authorization successful — you can close this tab.",
+                );
                 return Ok(c);
             }
             None => respond(&mut stream, "Continue in the original window."),
@@ -220,7 +227,9 @@ fn pct(s: &str) -> String {
     let mut o = String::new();
     for b in s.bytes() {
         match b {
-            b'A'..=b'Z' | b'a'..=b'z' | b'0'..=b'9' | b'-' | b'_' | b'.' | b'~' => o.push(b as char),
+            b'A'..=b'Z' | b'a'..=b'z' | b'0'..=b'9' | b'-' | b'_' | b'.' | b'~' => {
+                o.push(b as char)
+            }
             _ => o.push_str(&format!("%{b:02X}")),
         }
     }
@@ -268,6 +277,8 @@ fn open_browser(url: &str) -> Result<()> {
 }
 #[cfg(target_os = "windows")]
 fn open_browser(url: &str) -> Result<()> {
-    std::process::Command::new("cmd").args(["/C", "start", "", url]).spawn()?;
+    std::process::Command::new("cmd")
+        .args(["/C", "start", "", url])
+        .spawn()?;
     Ok(())
 }

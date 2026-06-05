@@ -30,7 +30,10 @@ pub fn format_time(ms: i64) -> String {
 
 /// Pull transcript segments out of a file's `source_list` (data_type "transaction").
 pub fn transcript_segments(f: &FileDetail) -> Option<Vec<Segment>> {
-    let item = f.source_list.iter().find(|s| s.data_type == "transaction")?;
+    let item = f
+        .source_list
+        .iter()
+        .find(|s| s.data_type == "transaction")?;
     serde_json::from_str(&item.data_content).ok()
 }
 
@@ -46,8 +49,16 @@ pub fn summary_markdown(f: &FileDetail) -> Option<String> {
 pub fn segments_to_text(segs: &[Segment]) -> String {
     segs.iter()
         .map(|seg| {
-            let t = format!("[{} - {}]", format_time(seg.start_time), format_time(seg.end_time));
-            let sp = seg.speaker.as_deref().map(|s| format!("{s}: ")).unwrap_or_default();
+            let t = format!(
+                "[{} - {}]",
+                format_time(seg.start_time),
+                format_time(seg.end_time)
+            );
+            let sp = seg
+                .speaker
+                .as_deref()
+                .map(|s| format!("{s}: "))
+                .unwrap_or_default();
             format!("{t} {sp}{}", seg.content)
         })
         .collect::<Vec<_>>()
@@ -57,13 +68,30 @@ pub fn segments_to_text(segs: &[Segment]) -> String {
 pub fn segments_to_srt(segs: &[Segment]) -> String {
     fn ts(ms: i64) -> String {
         let s = ms / 1000;
-        format!("{:02}:{:02}:{:02},{:03}", s / 3600, (s % 3600) / 60, s % 60, ms % 1000)
+        format!(
+            "{:02}:{:02}:{:02},{:03}",
+            s / 3600,
+            (s % 3600) / 60,
+            s % 60,
+            ms % 1000
+        )
     }
     segs.iter()
         .enumerate()
         .map(|(i, seg)| {
-            let sp = seg.speaker.as_deref().map(|s| format!("{s}: ")).unwrap_or_default();
-            format!("{}\n{} --> {}\n{}{}\n", i + 1, ts(seg.start_time), ts(seg.end_time), sp, seg.content)
+            let sp = seg
+                .speaker
+                .as_deref()
+                .map(|s| format!("{s}: "))
+                .unwrap_or_default();
+            format!(
+                "{}\n{} --> {}\n{}{}\n",
+                i + 1,
+                ts(seg.start_time),
+                ts(seg.end_time),
+                sp,
+                seg.content
+            )
         })
         .collect::<Vec<_>>()
         .join("\n")

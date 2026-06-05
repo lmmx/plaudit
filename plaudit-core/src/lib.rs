@@ -5,8 +5,8 @@ mod types;
 
 pub use client::Client;
 pub use fmt::{
-    format_date, format_duration, format_time, segments_to_srt, segments_to_text,
-    summary_markdown, transcript_segments,
+    format_date, format_duration, format_time, segments_to_srt, segments_to_text, summary_markdown,
+    transcript_segments,
 };
 pub use oauth::{run_login, OAuth, TokenStore};
 pub use types::{DataItem, FileDetail, FileSummary, FilesPage, Segment, TokenSet};
