@@ -4,6 +4,8 @@ resolver = "2"
 members = ["plaudit-core", "plaudit-cli"]
 
 [workspace.dependencies]
+plaudit-core = { path = "plaudit-core", version = "0.1.0" }
+
 ureq = { version = "2", default-features = false, features = ["tls", "json"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"

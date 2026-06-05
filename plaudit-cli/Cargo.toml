@@ -12,7 +12,7 @@ name = "plaudit"
 path = "src/main.rs"
 
 [dependencies]
-plaudit-core = { path = "../plaudit-core" }
+plaudit-core = { path = "../plaudit-core", workspace = true }
 clap = { workspace = true }
 
 [package.metadata.binstall]
