@@ -25,6 +25,9 @@ ship version="auto":
     just publish --dry-run
     # ✅ Dry-run went OK, proceeding to real release
 
+    # 🧹 Reset any side-effects from the dry-run (e.g. Cargo.lock)
+    git checkout .
+
     if [[ "{{version}}" != "auto" ]]; then
         if [[ -n "$(git status --porcelain)" ]]; then
             # ❌ Working directory must be clean for manual version bump
@@ -79,7 +82,7 @@ publish mode="":
     git_token=$(gh auth token 2>/dev/null) || git_token=$PUBLISH_GITHUB_TOKEN
 
     ## 🦀 Let release-plz handle workspace crate tagging
-    ## It will create tags like: plaudit-core-v0.1.1, plaudit-cli-v0.1.1, etc.
+    ## It will create tags like: plaudit-core-v0.1.2, plaudit-cli-v0.1.2, etc.
     release-plz release --backend github --git-token $git_token {{mode}}
 
 
