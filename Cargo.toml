@@ -1,7 +1,13 @@
-# Cargo.toml
 [workspace]
 resolver = "2"
 members = ["plaudit-core", "plaudit-cli"]
+
+[workspace.package]
+authors = ["Louis Maddox <louismmx@gmail.com>"]
+edition = "2021"
+homepage = "https://github.com/lmmx/plaudit"
+license = "MIT"
+repository = "https://github.com/lmmx/plaudit"
 
 [workspace.dependencies]
 plaudit-core = { path = "plaudit-core", version = "0.1.0" }

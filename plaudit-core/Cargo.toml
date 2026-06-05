@@ -1,9 +1,13 @@
 [package]
 name = "plaudit-core"
 version = "0.1.0"
-edition = "2021"
-license = "MIT"
+authors.workspace = true
+edition.workspace = true
+homepage.workspace = true
+license.workspace = true
+repository.workspace = true
 description = "OAuth + REST client for the Plaud developer API"
+documentation = "https://docs.rs/plaudit-core/"
 readme = "README.md"
 
 [dependencies]
