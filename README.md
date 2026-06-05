@@ -18,7 +18,11 @@ registers no tools. For AI-assistant integration, use Plaud's official MCP serve
 
 ## Install
 
-    cargo install --path plaudit-cli --locked
+    cargo install plaudit-cli
+
+Or if you have cargo binstall:
+
+    cargo binstall plaudit-cli
 
 ## Usage
 

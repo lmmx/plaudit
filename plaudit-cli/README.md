@@ -10,7 +10,13 @@ binary with no runtime dependencies. Built on [`plaudit-core`](https://crates.io
 ## Install
 
 ```sh
-cargo install plaudit-cli --locked
+cargo install plaudit-cli
+```
+
+To download the prebuilt binary from GitHub:
+
+```sh
+cargo binstall plaudit-cli
 ```
 
 ## Usage
