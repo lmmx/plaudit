@@ -20,12 +20,12 @@ clap = { workspace = true }
 
 [package.metadata.binstall]
 pkg-fmt = "tgz"
-pkg-url = "https://github.com/lmmx/plaudit/releases/download/plaudit-v{ version }/plaudit-{ target }-v{ version }.tar.gz"
+pkg-url = "https://github.com/lmmx/plaudit/releases/download/plaudit-cli-v{ version }/plaudit-{ target }-v{ version }.tar.gz"
 
 [package.metadata.binstall.overrides.aarch64-pc-windows-msvc]
 pkg-fmt = "zip"
-pkg-url = "https://github.com/lmmx/plaudit/releases/download/plaudit-v{ version }/plaudit-aarch64-pc-windows-msvc-v{ version }.zip"
+pkg-url = "https://github.com/lmmx/plaudit/releases/download/plaudit-cli-v{ version }/plaudit-aarch64-pc-windows-msvc-v{ version }.zip"
 
 [package.metadata.binstall.overrides.x86_64-pc-windows-msvc]
 pkg-fmt = "zip"
-pkg-url = "https://github.com/lmmx/plaudit/releases/download/plaudit-v{ version }/plaudit-x86_64-pc-windows-msvc-v{ version }.zip"
+pkg-url = "https://github.com/lmmx/plaudit/releases/download/plaudit-cli-v{ version }/plaudit-x86_64-pc-windows-msvc-v{ version }.zip"
