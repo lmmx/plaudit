@@ -53,8 +53,19 @@ ship version="auto":
 
     cargo check
     git add .
+    # Run a pre-commit lint pass to avoid the linter halting our release!
     just pc-fix || true
     git commit -m "chore(release): 🦀 Upgrades"
+
+    # 🦀 Run prepush only for the Rust crates we are releasing
+    just prepush
+
+    # Check for unstaged changes
+    if [[ -n $(git status --porcelain) ]]; then
+        # Unstaged changes detected. Rolling back the crate version bump commit
+        git reset --soft HEAD~1
+        exit 1
+    fi
 
     # 🚀 Push the version bump commit
     git push --no-verify
@@ -68,7 +79,7 @@ publish mode="":
     git_token=$(gh auth token 2>/dev/null) || git_token=$PUBLISH_GITHUB_TOKEN
 
     ## 🦀 Let release-plz handle workspace crate tagging
-    ## It will create tags like: plaudit-cli-v0.1.0, plaudit-core-v0.1.0, etc.
+    ## It will create tags like: plaudit-core-v0.1.1, plaudit-cli-v0.1.1, etc.
     release-plz release --backend github --git-token $git_token {{mode}}
 
 
@@ -76,7 +87,7 @@ publish mode="":
 ship-manual:
     #!/usr/bin/env -S echo-comment --shell-flags="-euo pipefail" --color="\\033[38;5;202m"
 
-    # Bump patch version
+    # Bump patch version (with cargo-edit)
     cargo set-version --bump patch
 
     # Commit and tag
@@ -93,6 +104,10 @@ ship-manual:
     # Push to remote
     git push
     git push --tags
+
+    # Create GitHub release for CLI (triggers binary build CI)
+    cli_version=$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[] | select(.name=="plaudit-cli") | .version')
+    gh release create "plaudit-cli-v${cli_version}" --title "plaudit-cli-v${cli_version}" --generate-notes
 
     # Publish core first (cli depends on it)
     cargo publish -p plaudit-core
