@@ -10,7 +10,7 @@ license = "MIT"
 repository = "https://github.com/lmmx/plaudit"
 
 [workspace.dependencies]
-plaudit-core = { path = "plaudit-core", version = "0.1.1" }
+plaudit-core = { path = "plaudit-core", version = "0.1.2" }
 
 ureq = { version = "2", default-features = false, features = ["tls", "json"] }
 serde = { version = "1", features = ["derive"] }
