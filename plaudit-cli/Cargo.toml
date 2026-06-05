@@ -1,0 +1,15 @@
+[package]
+name = "plaudit-cli"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Command-line tool to export your Plaud recordings and transcripts"
+readme = "README.md"
+
+[[bin]]
+name = "plaudit"
+path = "src/main.rs"
+
+[dependencies]
+plaudit-core = { path = "../plaudit-core" }
+clap = { workspace = true }
